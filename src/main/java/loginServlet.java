@@ -10,9 +10,20 @@ import java.io.IOException;
 public class loginServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-      response.setContentType("text/html");
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       request.getRequestDispatcher("/login.jsp").forward(request,response);
     }
-  }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+      String username = request.getParameter("username");
+      String password = request.getParameter("password");
+
+        if (username.equalsIgnoreCase("admin") && (password.equalsIgnoreCase("password"))) {
+          response.sendRedirect("/profile");
+        }
+      }
+
+  } //end of Servlet
+
