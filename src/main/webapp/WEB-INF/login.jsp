@@ -5,10 +5,10 @@
 <html>
 <head>
     <title>Login</title>
-    <%@ include file="partials/head.jsp" %>
+    <%@ include file="/WEB-INF/partials/head.jsp" %>
 </head>
 <body>
-    <%@ include file="partials/navbar.jsp" %>
+    <%@ include file="/WEB-INF/partials/navbar.jsp" %>
 
     <h2>Login!</h2><br>
 
@@ -18,7 +18,7 @@
                 <form method="POST" action="/login">
                     <div class="form-group">
                         <label for="username">Username:</label>
-                        <input type="email" class="form-control" id="username" name="username" aria-describedby=""
+                        <input type="text" class="form-control" id="username" name="username" aria-describedby=""
                                placeholder="Enter username">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                             else.
