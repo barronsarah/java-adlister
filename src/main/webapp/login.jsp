@@ -5,19 +5,36 @@
 <html>
 <head>
     <title>Login</title>
-    <%@ include file="partials/head.jsp"%>
+    <%@ include file="partials/head.jsp" %>
 </head>
 <body>
     <%@ include file="partials/navbar.jsp" %>
 
     <h2>Login!</h2><br>
-    <form method="POST" action="/login">
-        Username:
-        <input type="text" id="username" name="username" placeholder="Enter Username Here"><br>
-        Password:
-        <input type="password" name="password"><br>
-        <button type="submit">Login!</button>
 
-    </form>
+    <div class="container mx-4">
+        <div class="row justify-content-left">
+            <div class="col-md-4">
+                <form method="POST" action="/login">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="email" class="form-control" id="username" name="username" aria-describedby=""
+                               placeholder="Enter username">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control" id="password"
+                               placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 </body>
 </html>
