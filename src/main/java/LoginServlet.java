@@ -13,7 +13,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession ourSession = request.getSession();
 
         if(ourSession.getAttribute("user") !=null
-//                && (Boolean)ourSession.getAttribute("user")==true
+//                && (Boolean)ourSession.getAttribute("user")==true   <-- ended up not needing this
         ){
             response.sendRedirect("/profile");
             return;
