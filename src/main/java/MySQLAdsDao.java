@@ -1,12 +1,12 @@
 import com.mysql.cj.jdbc.Driver;
-import javax.swing.plaf.nimbus.State;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MySQLAdsDao implements Ads {
 
-  private Connection connection = null;
+  private Connection connection;
 
   public MySQLAdsDao(Config config) {
     try {
@@ -31,7 +31,7 @@ public class MySQLAdsDao implements Ads {
       while (rs.next()) {
         ads.add(new Ad(
                 rs.getLong("id"),
-                rs.getString("user_id"),
+                rs.getLong("user_id"),
                 rs.getString("title"),
                 rs.getString("description")
         ));
@@ -57,14 +57,14 @@ public class MySQLAdsDao implements Ads {
 
   private String adInsertQuery(Ad ad){
     return "INSERT INTO ads(user_id, title, description) VALUES" +
-            "(" + ad.getUserId() + "," +
+            "('" + ad.getUserId() + "'," +
             "'" + ad.getTitle() + "'," +
-            "'" + ad.getDescription() + "'";
+            "'" + ad.getDescription() + "')";
   }
 
 
-  public static void main(String[] args) {
-    Config config = new Config();
-    MySQLAdsDao dao = new MySQLAdsDao(config);
-  }
+//  public static void main(String[] args) {
+//    Config config = new Config();
+//    MySQLAdsDao dao = new MySQLAdsDao(config);
+//  }
 }
