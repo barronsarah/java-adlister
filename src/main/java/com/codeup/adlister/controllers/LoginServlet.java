@@ -20,23 +20,30 @@ public class LoginServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
+
+    // TODO: find a record in your database that matches the submitted password
+    // TODO: make sure we find a user with that username
+    // TODO: check the submitted password against what you have in your database
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         User user = DaoFactory.getUsersDao().findByUsername(username);
 
-        // TODO: find a record in your database that matches the submitted password
-        // TODO: make sure we find a user with that username
-        // TODO: check the submitted password against what you have in your database
-        boolean validAttempt = username.equalsIgnoreCase(user.getUsername().toLowerCase()) && password.equals(user.getPassword());
 
-        if (validAttempt) {
-            // TODO: store the logged in user object in the session, instead of just the username
+        if(user == null){
+            response.sendRedirect("/login");
+        } else if (username.equals(user.getUsername()) && password.equals(user.getPassword())){
             request.getSession().setAttribute("user", user);
             response.sendRedirect("/profile");
         } else {
             response.sendRedirect("/login");
         }
+
+
+            // TODO: store the logged in user object in the session, instead of just the username
+
+
     }
 }
