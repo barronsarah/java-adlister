@@ -13,6 +13,7 @@ public class MySQLUsersDao implements Users {
 
   @Override
   public User findByUsername(String username) {
+    User user = null;
     try {
       String sql = "Select * from users where username like ?";
       username = "%" + username + "%";
@@ -21,18 +22,19 @@ public class MySQLUsersDao implements Users {
       stmt.setString(1, username);
       ResultSet rs = stmt.executeQuery();
 
-      rs.next();
-        User user = new User(
-                  rs.getLong("id"),
-                  rs.getString("username"),
-                  rs.getString("email"),
-                  rs.getString("password")
-                  );
-
+      while(rs.next()) {
+        user = new User(
+//                  rs.getLong("id"),
+                rs.getString("username"),
+                rs.getString("email"),
+                rs.getString("password")
+        );
+      }
       return user;
     } catch (SQLException e) {
       throw new RuntimeException("Error with user search!", e);
         }
+
     }
 
 
