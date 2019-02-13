@@ -18,11 +18,11 @@
     <div>
         <form method="post" action="/register">
             <label for="username">Username:</label>
-            <input type="text" id="username" placeholder="Enter username here"><br>
+            <input type="text" id="username" name ="username" placeholder="Enter username here"><br>
             <label for="email">Email:</label>
-            <input type="text" id="email" placeholder="Enter email address here"><br>
+            <input type="text" id="email" name="email" placeholder="Enter email address here"><br>
             <label for="password">Password:</label>
-            <input type="password" id="password"><br>
+            <input type="password" id="password" name="password"><br>
         </form>
     </div>
     <button type="submit">Create my account</button>

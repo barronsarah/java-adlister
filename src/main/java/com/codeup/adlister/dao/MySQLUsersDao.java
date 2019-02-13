@@ -1,21 +1,21 @@
 package com.codeup.adlister.dao;
 
+import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
+import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
 
 
 public class MySQLUsersDao implements Users {
 
-  Connection connection;
+  private Connection connection = null;
   PreparedStatement stmt;
-  String searchTerm = null;
 
 
-// not sure if a driver is needed on every dao file -
   public MySQLUsersDao(Config config){
     try {
-      DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+      DriverManager.registerDriver(new Driver());
       connection = DriverManager.getConnection(
               config.getUrl(),
               config.getUser(),
@@ -31,7 +31,7 @@ public class MySQLUsersDao implements Users {
     User user = null;
     try {
       String sql = "Select * from users where username = ?";
-  // username = "'%" + username + "%'"; <-- don't need this due to only searching for a one user with searched username
+  // username = "'%" + username + "%'"; <-- don't need this due to only searching for one user with searched username
 
       stmt = connection.prepareStatement(sql);
       stmt.setString(1, username);
@@ -55,9 +55,12 @@ public class MySQLUsersDao implements Users {
 
   @Override
   public Long insert(User user) {
-
+    String qry = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
     try {
-      stmt = connection.prepareStatement(addUserQuery(user), Statement.RETURN_GENERATED_KEYS);
+     PreparedStatement stmt = connection.prepareStatement(qry, Statement.RETURN_GENERATED_KEYS);
+          stmt.setString(1, user.getUsername());
+          stmt.setString(2, user.getEmail());
+          stmt.setString(3, user.getPassword());
       stmt.executeUpdate();
       ResultSet rs = stmt.getGeneratedKeys();
       rs.next();
@@ -67,13 +70,13 @@ public class MySQLUsersDao implements Users {
         }
   }
 
-  private String addUserQuery(User user) throws SQLException {
-    String sql = "INSERT INTO users(username, email, password VALUES(?,?,?)";
-           stmt.setString(1, user.getUsername());
-           stmt.setString(2, user.getEmail());
-           stmt.setString(3, user.getPassword());
-           return sql;
-    }
+//  private String addUserQuery(User user) throws SQLException {
+//    String sql = "INSERT INTO users(username, email, password) VALUES (?,?,?)";
+//           stmt.setString(1, user.getUsername());
+//           stmt.setString(2, user.getEmail());
+//           stmt.setString(3, user.getPassword());
+//           return sql;
+//    }
 
 
 }
